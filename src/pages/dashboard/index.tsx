@@ -2,8 +2,9 @@ import { Animated, bounce, Container, listContainer } from '@/shared/styles';
 import { Phone, ContactPhone, Edit } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
-const Users = () => {
+const dashboard = () => {
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const router = useRouter();
 
     return (
@@ -23,4 +24,4 @@ const Users = () => {
     )
 };
 
-export default Users;
+export default dashboard;

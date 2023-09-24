@@ -1,7 +1,9 @@
+'use client'
 import { ApolloProvider } from '@apollo/client';
 import { NextComponentType, NextPageContext } from 'next';
 import { AppProps } from 'next/app';
 import { globalStyles } from '@/shared/styles';
+import { FavoritesProvider } from '../context/useFavourite';
 import client from '../lib/apollo';
 
 interface MyAppProps extends AppProps {
@@ -11,8 +13,10 @@ interface MyAppProps extends AppProps {
 function MyApp({ Component, pageProps }: MyAppProps) {
     return (
         <ApolloProvider client={client}>
-            {globalStyles}
-            <Component {...pageProps} />
+            <FavoritesProvider>
+                {globalStyles}
+                <Component {...pageProps} />
+            </FavoritesProvider>
         </ApolloProvider>
     );
 }

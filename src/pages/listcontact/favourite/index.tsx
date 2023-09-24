@@ -1,13 +1,13 @@
-import { Animated, bounce, listContainer, listItem, Button, centerStyle, favouriteButtonStyles, HeaderContainer } from '../../shared/styles';
+import { Animated, bounce, listContainer, listItem, Button, centerStyle, favouriteButtonStyles, HeaderContainer } from '@/shared/styles';
 import { ContactPhone } from '@mui/icons-material';
 import { useQuery, useMutation, ApolloError } from '@apollo/client';
-import { GET_CONTACT_LIST, DELETE_CONTACT } from '../../lib/queries';
-import { DataListContact } from '@/types';
+import { GET_CONTACT_LIST, DELETE_CONTACT } from '@/lib/queries';
+import { DataListContact, FavouriteData } from '@/types';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { SearchComponents, DropdownComponents } from '@/components';
 import { addButtonStyles, deleteButtonStyles } from '@/shared/styles';
-import { useFavorites } from '../../context/useFavourite';
+import { useFavorites } from '@/context/useFavourite';
 import Swal from 'sweetalert2';
 
 const Users = () => {
@@ -17,7 +17,7 @@ const Users = () => {
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const { favorites, addFavorite, removeFavorite } = useFavorites();
 
-    const isFavorite = (contact: number | undefined) => (favorites.includes(contact));
+    const isFavorite = (contactId: FavouriteData) => (favorites.includes(contactId));
 
     console.log(favorites)
 
@@ -82,13 +82,12 @@ const Users = () => {
     const sourceData = searchData || allData?.contact;
     const totalPages = Math.ceil(sourceData.length / itemsPerPage);
 
-    const favoriteContacts = sourceData.filter((contact: number) => favorites.includes(contact.id));
-    const nonFavoriteContacts = sourceData.filter((contact: number) => !favorites.includes(contact.id));
+    const favoriteContacts = sourceData.filter((contact: FavouriteData) => favorites.includes(contact.id));
 
-    const getCurrentPageData = (nonFavoriteContacts: DataListContact[]) => {
+    const getCurrentPageData = (contacts: DataListContact[]) => {
         const startIndex = page * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        return nonFavoriteContacts.slice(startIndex, endIndex);
+        return contacts.slice(startIndex, endIndex);
     };
 
 
@@ -96,9 +95,10 @@ const Users = () => {
         <>
             <div css={listContainer}>
                 <Animated animation={bounce}>
-                    <ContactPhone /> List Contact Page
+                    <ContactPhone /> List Favourite Contact Page
                 </Animated>
                 <div css={centerStyle}>
+                    <Button style={{ margin: "0.5rem 0.5rem" }} onClick={() => router.push('/listcontact')}>Regular Contact</Button>
                     <DropdownComponents
                         itemsPerPage={itemsPerPage}
                         setItemsPerPage={setItemsPerPage}
@@ -108,10 +108,10 @@ const Users = () => {
                 <HeaderContainer>
                     <SearchComponents data={allData?.contact} onChange={handleSearch} />
                     <Button onClick={() => router.push('/formcontact')} css={addButtonStyles} style={{ margin: "0.3rem 0.3rem" }}>Add Contact</Button>
-                    <Button css={favouriteButtonStyles} style={{ margin: "0.3rem 0.3rem" }} onClick={() => router.push('/listcontact/favourite')}>List favourite ({favoriteContacts.length})</Button>
+                    <Button css={favouriteButtonStyles} style={{ margin: "0.3rem 0.3rem" }}>List favourite ({favoriteContacts.length})</Button>
                 </HeaderContainer>
-                {getCurrentPageData(nonFavoriteContacts).length > 0 ? (
-                    getCurrentPageData(nonFavoriteContacts).map((contact: DataListContact) => (
+                {getCurrentPageData(favoriteContacts).length > 0 ? (
+                    getCurrentPageData(favoriteContacts).map((contact: DataListContact) => (
                         <div key={contact.id} css={listItem}>
                             <p><strong>ID:</strong> {contact.id}</p>
                             <p><strong>First Name:</strong> {contact.first_name}</p>
