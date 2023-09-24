@@ -2,7 +2,7 @@ import { Animated, bounce, listContainer, listItem, Button, centerStyle, favouri
 import { ContactPhone } from '@mui/icons-material';
 import { useQuery, useMutation, ApolloError } from '@apollo/client';
 import { GET_CONTACT_LIST, DELETE_CONTACT } from '@/lib/queries';
-import { DataListContact, FavouriteData } from '@/types';
+import { DataListContact } from '@/types';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { SearchComponents, DropdownComponents } from '@/components';
@@ -16,8 +16,6 @@ const Users = () => {
     const [searchData, setSearchData] = useState<DataListContact[] | null>(null);
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const { favorites, addFavorite, removeFavorite } = useFavorites();
-
-    const isFavorite = (contactId: FavouriteData) => (favorites.includes(contactId));
 
     console.log(favorites)
 
@@ -79,10 +77,12 @@ const Users = () => {
         </div>
     );
 
+    const isFavorite = (contactId: number) => (favorites.includes(contactId));
+
     const sourceData = searchData || allData?.contact;
     const totalPages = Math.ceil(sourceData.length / itemsPerPage);
 
-    const favoriteContacts = sourceData.filter((contact: FavouriteData) => favorites.includes(contact.id));
+    const favoriteContacts = sourceData.filter((contact: any) => favorites.includes(contact.id));
 
     const getCurrentPageData = (contacts: DataListContact[]) => {
         const startIndex = page * itemsPerPage;
@@ -103,7 +103,7 @@ const Users = () => {
                         itemsPerPage={itemsPerPage}
                         setItemsPerPage={setItemsPerPage}
                         setPage={setPage} />
-                    <Button style={{ margin: "0.5rem 0.5rem" }} onClick={() => router.push('/dashboard')}>Back</Button>
+                    <Button style={{ margin: "0.5rem 0.5rem" }} onClick={() => router.push('/')}>Back</Button>
                 </div>
                 <HeaderContainer>
                     <SearchComponents data={allData?.contact} onChange={handleSearch} />
@@ -124,10 +124,10 @@ const Users = () => {
                                     </li>
                                 ))}
                             </ul>
-                            {isFavorite(contact.id) ? (
-                                <Button css={favouriteButtonStyles} onClick={() => removeFavorite(contact.id)}>Remove Favorites</Button>
+                            {isFavorite(contact.id || 0) ? (
+                                <Button css={favouriteButtonStyles} onClick={() => removeFavorite(contact.id || 0)}>Remove Favorites</Button>
                             ) : (
-                                <Button css={favouriteButtonStyles} onClick={() => addFavorite(contact.id)}>Add to Favorites</Button>
+                                <Button css={favouriteButtonStyles} onClick={() => addFavorite(contact.id || 0)}>Add to Favorites</Button>
                             )}
                             <Button style={{ margin: "0.5rem 0.5rem" }}>Edit</Button>
                             <Button css={deleteButtonStyles} onClick={() => handleDelete(contact.id)}>Delete</Button>
@@ -136,7 +136,7 @@ const Users = () => {
                 ) : (
                     <>
                         <div css={listItem}>
-                            <h3>List is empty!</h3>
+                            <h3>List Favourite is empty!</h3>
                             <br></br>
                             <p>Not looking for what you need? Try to add a new contact.</p>
                         </div>

@@ -1,6 +1,6 @@
 import { Animated, bounce, listContainer, listItem, Button, centerStyle, favouriteButtonStyles, HeaderContainer } from '../../shared/styles';
 import { ContactPhone } from '@mui/icons-material';
-import { useQuery, useMutation, ApolloError } from '@apollo/client';
+import { useQuery, useMutation, ApolloError, Reference, StoreObject } from '@apollo/client';
 import { GET_CONTACT_LIST, DELETE_CONTACT } from '../../lib/queries';
 import { DataListContact } from '@/types';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ const Users = () => {
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const { favorites, addFavorite, removeFavorite } = useFavorites();
 
-    const isFavorite = (contact: number | undefined) => (favorites.includes(contact));
+    const isFavorite = (contact: number) => (favorites.includes(contact))
 
     console.log(favorites)
 
@@ -54,7 +54,7 @@ const Users = () => {
                 cache.modify({
                     fields: {
                         contact(existingContacts = [], { readField }) {
-                            return existingContacts.filter((contactRef: any) => {
+                            return existingContacts.filter((contactRef: Reference | StoreObject | undefined) => {
                                 return id !== readField('id', contactRef);
                             });
                         },
@@ -82,8 +82,8 @@ const Users = () => {
     const sourceData = searchData || allData?.contact;
     const totalPages = Math.ceil(sourceData.length / itemsPerPage);
 
-    const favoriteContacts = sourceData.filter((contact: number) => favorites.includes(contact.id));
-    const nonFavoriteContacts = sourceData.filter((contact: number) => !favorites.includes(contact.id));
+    const favoriteContacts = sourceData.filter((contact: any) => favorites.includes(contact.id));
+    const nonFavoriteContacts = sourceData.filter((contact: any) => !favorites.includes(contact.id));
 
     const getCurrentPageData = (nonFavoriteContacts: DataListContact[]) => {
         const startIndex = page * itemsPerPage;
@@ -103,7 +103,7 @@ const Users = () => {
                         itemsPerPage={itemsPerPage}
                         setItemsPerPage={setItemsPerPage}
                         setPage={setPage} />
-                    <Button style={{ margin: "0.5rem 0.5rem" }} onClick={() => router.push('/dashboard')}>Back</Button>
+                    <Button style={{ margin: "0.5rem 0.5rem" }} onClick={() => router.push('/')}>Back</Button>
                 </div>
                 <HeaderContainer>
                     <SearchComponents data={allData?.contact} onChange={handleSearch} />
@@ -124,10 +124,10 @@ const Users = () => {
                                     </li>
                                 ))}
                             </ul>
-                            {isFavorite(contact.id) ? (
-                                <Button css={favouriteButtonStyles} onClick={() => removeFavorite(contact.id)}>Remove Favorites</Button>
+                            {isFavorite(contact.id || 0) ? (
+                                <Button css={favouriteButtonStyles} onClick={() => removeFavorite(contact.id || 0)}>Remove Favorites</Button>
                             ) : (
-                                <Button css={favouriteButtonStyles} onClick={() => addFavorite(contact.id)}>Add to Favorites</Button>
+                                <Button css={favouriteButtonStyles} onClick={() => addFavorite(contact.id || 0)}>Add to Favorites</Button>
                             )}
                             <Button style={{ margin: "0.5rem 0.5rem" }}>Edit</Button>
                             <Button css={deleteButtonStyles} onClick={() => handleDelete(contact.id)}>Delete</Button>
@@ -136,7 +136,7 @@ const Users = () => {
                 ) : (
                     <>
                         <div css={listItem}>
-                            <h3>List is empty!</h3>
+                            <h3>List Regular is empty!</h3>
                             <br></br>
                             <p>Not looking for what you need? Try to add a new contact.</p>
                         </div>
