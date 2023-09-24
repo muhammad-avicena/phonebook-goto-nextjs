@@ -21,12 +21,6 @@ const validationSchema = Yup.object({
     last_name: Yup.string()
         .matches(/^[a-zA-Z ]+$/, 'Specials characters are not allowed')
         .required('Last Name is required'),
-    phones: Yup.array()
-        .of(
-            Yup.string()
-                .required('Phone Number is required')
-        )
-        .min(1, 'At least one phone number is required'),
 });
 
 const AddContact: React.FC<AddContactProps> = ({ onAddContact }) => {
@@ -53,7 +47,7 @@ const AddContact: React.FC<AddContactProps> = ({ onAddContact }) => {
 
         <form onSubmit={formik.handleSubmit} >
             <div>
-                <label htmlFor="first_name">First Name* <br></br></label>
+                <label htmlFor="first_name">First Name*<br></br></label>
                 <input
                     type="text"
                     id="first_name"
@@ -67,7 +61,7 @@ const AddContact: React.FC<AddContactProps> = ({ onAddContact }) => {
                 ) : null}
             </div>
             <div>
-                <label htmlFor="last_name">Last Name* <br></br></label>
+                <label htmlFor="last_name">Last Name*<br></br></label>
                 <input
                     type="text"
                     id="last_name"
@@ -81,8 +75,8 @@ const AddContact: React.FC<AddContactProps> = ({ onAddContact }) => {
                 ) : null}
             </div>
             <div>
-                <label>Phone Numbers*</label>
-                {formik.values.phones.map((phones, index) => (
+                <label>Phone Numbers</label>
+                {formik.values.phones?.map((phones, index) => (
                     <div key={index}>
                         <input
                             type="text"
@@ -91,10 +85,6 @@ const AddContact: React.FC<AddContactProps> = ({ onAddContact }) => {
                             onBlur={formik.handleBlur}
                             value={phones}
                         />
-                        {formik.touched.phones?.[index] &&
-                            formik.errors.phones?.[index] !== undefined ? (
-                            <div css={errorMessageStyle}>{formik.errors.phones[index]}</div>
-                        ) : null}
                         {index > 0 && (
                             <Button
                                 css={deletePhoneButtonStyles}
