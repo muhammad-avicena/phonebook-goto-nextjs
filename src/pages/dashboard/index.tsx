@@ -1,18 +1,26 @@
-import { Animated, bounce, Combined, Button } from '../../shared/styles'
+import { Animated, bounce, Container, listContainer } from '@/shared/styles';
+import { Phone, ContactPhone, Edit } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
-const Users = () => (
-    <div>
-        <Animated animation={bounce}>Phone Book App</Animated>
-        <Combined>
-            View Contact.
-        </Combined>
-        <Combined>
-            Edit Contact.
-        </Combined>
-        <Combined>
-            Delete Contact.
-        </Combined>   
-    </div>
-)
+const Users = () => {
 
-export default Users
+    const router = useRouter();
+
+    return (
+        <>
+            <div css={listContainer}>
+                <Animated animation={bounce}>
+                    <Phone /> Phone Book App
+                </Animated>
+                <Container onClick={() => router.push('/listcontact')}>
+                    <ContactPhone /> Contact List
+                </Container>
+                <Container onClick={() => router.push('/formcontact')}>
+                    <Edit /> Form Contact
+                </Container>
+            </div >
+        </>
+    )
+};
+
+export default Users;
