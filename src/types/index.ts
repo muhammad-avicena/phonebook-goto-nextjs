@@ -11,6 +11,12 @@ export interface DataListContact {
   __typename?: string;
 }
 
+export interface ContactData {
+  first_name: string;
+  last_name: string;
+  phones: string[];
+}
+
 export interface DataPhoneUser {
   id?: number;
   number: string;

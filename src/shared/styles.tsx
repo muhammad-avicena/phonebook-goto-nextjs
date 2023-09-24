@@ -12,7 +12,7 @@ export const globalStyles = (
         background: papayawhip;
         min-height: 100%;
         font-family: monospace;
-        font-size: 24px;
+        font-size: 18px;
         background-color: #040005;
       }
       svg {
@@ -23,14 +23,14 @@ export const globalStyles = (
 );
 
 export const buttonStyle = css`
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1rem;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -38,19 +38,68 @@ export const buttonStyle = css`
   }
 `;
 
-export const Button = styled.button`
-  ${buttonStyle};
+export const addButtonStyles = css`
+  background-color: #4caf50;
+
+  &:hover {
+    background-color: #388e3c;
+  }
 `;
 
-export const ButtonAction = styled.button`
+export const deleteButtonStyles = css`
+  background-color: #f44336;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
+`;
+
+export const deletePhoneButtonStyles = css`
+ ${deleteButtonStyles};
+ padding: 0.2rem 0.6rem;
+ margin-left: 0.2rem;
+ font-size: 12px;
+`;
+
+
+export const favouriteButtonStyles = css`
+  background-color: #d41d6d;
+
+  &:hover {
+    background-color: #9f1652;
+  }
+`;
+
+export const addPhoneButtonStyles = css`
+  background-color: #6a31dd;
+  padding: 0.2rem 0.4rem;
+  font-size: 12px;
+
+  &:hover {
+    background-color: #36137a;
+  }
+`;
+
+export const errorMessageStyle = css`
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+`;
+
+export const Button = styled.button`
   ${buttonStyle};
-  background-color: red;
 `;
 
 export const centerStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const rightStyle = css`
+  display: flex;
+  align-items: right;
+  justify-content: right;
 `;
 
 export const basicStyles = css`
@@ -87,23 +136,29 @@ export const bounce = keyframes`
 
 export const searchContainer = css`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem; 
+  align-items: left;
+  justify-content: left;
+  margin-bottom: 0.2rem; 
 
   svg {
     margin-right: 0.5rem; 
-    color: white;
+    color: black;
   }
 
 `;
 
 export const searchInput = css`
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.3rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
 `;
+
+export const dropdownInput = css`
+  ${searchInput};
+  margin-left: 0.5rem;
+`;
+
 
 export const Basic = styled.div`
   ${basicStyles};
@@ -129,6 +184,14 @@ export const listContainer = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const containerDropdown = css`
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  color: white;
 `;
 
 export const listItem = css`
@@ -165,6 +228,10 @@ export const SmallContainer = styled.div`
   :hover {
     color: cornflowerblue;
   }
+`;
+
+export const HeaderContainer = styled.div`
+  ${listItem};
 `;
 
 export const Animated = styled.div<AnimatedProps>`
