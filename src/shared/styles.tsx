@@ -1,3 +1,4 @@
+'use client'
 import { css, Global, keyframes } from "@emotion/react";
 import { AnimatedProps } from "@/types";
 import styled from "@emotion/styled";

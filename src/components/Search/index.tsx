@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 import { DataListContact } from '@/types';
 import SearchIcon from '@mui/icons-material/Search';

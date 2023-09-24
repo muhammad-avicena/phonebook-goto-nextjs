@@ -1,3 +1,4 @@
+'use client'
 import { containerDropdown, dropdownInput } from "@/shared/styles";
 
 interface DropdownProps {

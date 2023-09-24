@@ -22,3 +22,7 @@ export interface DataPhoneUser {
   number: string;
   __typename?: string;
 }
+
+export interface FavouriteData {
+  contactId: number;
+}
