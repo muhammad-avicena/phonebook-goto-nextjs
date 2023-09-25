@@ -129,7 +129,7 @@ const Users = () => {
                             ) : (
                                 <Button css={favouriteButtonStyles} onClick={() => addFavorite(contact.id || 0)}>Add to Favorites</Button>
                             )}
-                            <Button style={{ margin: "0.5rem 0.5rem" }}>Edit</Button>
+                            <Button style={{ margin: "0.5rem 0.5rem" }} onClick={() => router.push(`/listcontact/${contact.id}`)}>Edit</Button>
                             <Button css={deleteButtonStyles} onClick={() => handleDelete(contact.id)}>Delete</Button>
                         </div>
                     ))

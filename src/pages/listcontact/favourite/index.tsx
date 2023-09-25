@@ -4,7 +4,7 @@ import { useQuery, useMutation, ApolloError } from '@apollo/client';
 import { GET_CONTACT_LIST, DELETE_CONTACT } from '@/lib/queries';
 import { DataListContact } from '@/types';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { SearchComponents, DropdownComponents } from '@/components';
 import { addButtonStyles, deleteButtonStyles } from '@/shared/styles';
 import { useFavorites } from '@/context/useFavourite';
@@ -16,8 +16,6 @@ const Users = () => {
     const [searchData, setSearchData] = useState<DataListContact[] | null>(null);
     const [itemsPerPage, setItemsPerPage] = useState(5);
     const { favorites, addFavorite, removeFavorite } = useFavorites();
-
-    console.log(favorites)
 
     const router = useRouter();
 
@@ -129,7 +127,7 @@ const Users = () => {
                             ) : (
                                 <Button css={favouriteButtonStyles} onClick={() => addFavorite(contact.id || 0)}>Add to Favorites</Button>
                             )}
-                            <Button style={{ margin: "0.5rem 0.5rem" }}>Edit</Button>
+                            <Button style={{ margin: "0.5rem 0.5rem" }} onClick={() => router.push(`/listcontact/${contact.id}`)}>Edit</Button>
                             <Button css={deleteButtonStyles} onClick={() => handleDelete(contact.id)}>Delete</Button>
                         </div>
                     ))
