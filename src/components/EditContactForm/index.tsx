@@ -5,7 +5,7 @@ import { errorMessageStyle, Button, addButtonStyles, addPhoneButtonStyles, delet
 import * as Yup from 'yup';
 import { ContactData } from '@/types';
 
-interface AddContactProps {
+interface EditContactProps {
     onEditContact: (contact: ContactData) => void;
     initialValuesData?: ContactData;
 }
@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
         .required('Last Name is required'),
 });
 
-const AddContact: React.FC<AddContactProps> = ({ onEditContact, initialValuesData }) => {
+const AddContact: React.FC<EditContactProps> = ({ onEditContact, initialValuesData }) => {
 
     const initialValues: ContactData = initialValuesData || {
         first_name: '',
@@ -31,7 +31,6 @@ const AddContact: React.FC<AddContactProps> = ({ onEditContact, initialValuesDat
         initialValues: initialValuesData || initialValues,
         validationSchema,
         onSubmit: (values) => {
-            console.log(values, "isi values form")
             onEditContact(values);
             formik.resetForm();
         },

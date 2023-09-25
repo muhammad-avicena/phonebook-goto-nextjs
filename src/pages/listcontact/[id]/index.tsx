@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-'use client'
 import { listContainer, listItem, Button, rightStyle } from "@/shared/styles";
 import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_CONTACT, GET_CONTACT_DETAILS } from "@/lib/queries";

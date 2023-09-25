@@ -19,8 +19,6 @@ const Users = () => {
 
     const isFavorite = (contact: number) => (favorites.includes(contact))
 
-    console.log(favorites)
-
     const router = useRouter();
 
     const { data: allData, loading: loadingAllData, error: errorAllData } = useQuery(GET_CONTACT_LIST);
