@@ -1,4 +1,4 @@
-import { Animated, bounce, listContainer, listItem, Button, centerStyle, favouriteButtonStyles, HeaderContainer } from '../../shared/styles';
+import { Animated, bounce, listContainer, listItem, Button, centerStyle, favouriteButtonStyles, HeaderContainer, spaceBetwenStyle } from '../../shared/styles';
 import { ContactPhone } from '@mui/icons-material';
 import { useQuery, useMutation, ApolloError, Reference, StoreObject } from '@apollo/client';
 import { GET_CONTACT_LIST, DELETE_CONTACT } from '../../lib/queries';
@@ -94,7 +94,7 @@ const Users = () => {
         <>
             <div css={listContainer}>
                 <Animated animation={bounce}>
-                    <ContactPhone /> List Contact Page
+                    <ContactPhone /> List Regular Contact Page
                 </Animated>
                 <div css={centerStyle}>
                     <DropdownComponents
@@ -104,9 +104,11 @@ const Users = () => {
                     <Button style={{ margin: "0.5rem 0.5rem" }} onClick={() => router.push('/')}>Back</Button>
                 </div>
                 <HeaderContainer>
+                    <div css={spaceBetwenStyle} style={{ marginBottom: "20px"}}>
+                        <Button onClick={() => router.push('/formcontact')} css={addButtonStyles} style={{ margin: "0.3rem 0.3rem" }}>Add Contact</Button>
+                        <Button css={favouriteButtonStyles} style={{ margin: "0.3rem 0.3rem" }} onClick={() => router.push('/listcontact/favourite')}>List favourite ({favoriteContacts.length})</Button>
+                    </div>
                     <SearchComponents data={allData?.contact} onChange={handleSearch} />
-                    <Button onClick={() => router.push('/formcontact')} css={addButtonStyles} style={{ margin: "0.3rem 0.3rem" }}>Add Contact</Button>
-                    <Button css={favouriteButtonStyles} style={{ margin: "0.3rem 0.3rem" }} onClick={() => router.push('/listcontact/favourite')}>List favourite ({favoriteContacts.length})</Button>
                 </HeaderContainer>
                 {getCurrentPageData(nonFavoriteContacts).length > 0 ? (
                     getCurrentPageData(nonFavoriteContacts).map((contact: DataListContact) => (

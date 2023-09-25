@@ -13,7 +13,7 @@ export const globalStyles = (
         background: papayawhip;
         min-height: 100%;
         font-family: monospace;
-        font-size: 18px;
+        font-size: 16px;
         background-color: #040005;
       }
       svg {
@@ -25,6 +25,7 @@ export const globalStyles = (
 
 export const buttonStyle = css`
   padding: 0.4rem 0.8rem;
+  font-family: monospace;
   background-color: #007bff;
   color: white;
   border: none;
@@ -39,6 +40,39 @@ export const buttonStyle = css`
   }
 `;
 
+export const linkTextStyle = css`
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    color: #0056b3;
+  }
+`;
+
+export const centerStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const spaceBetwenStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const rightStyle = css`
+  display: flex;
+  align-items: right;
+  justify-content: right;
+`;
+
+export const centerColumnStyle = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const addButtonStyles = css`
   background-color: #4caf50;
 
@@ -48,10 +82,10 @@ export const addButtonStyles = css`
 `;
 
 export const deleteButtonStyles = css`
-  background-color: #f44336;
+  background-color: #d11a2a;
 
   &:hover {
-    background-color: #d32f2f;
+    background-color: #a21723;
   }
 `;
 
@@ -91,18 +125,6 @@ export const Button = styled.button`
   ${buttonStyle};
 `;
 
-export const centerStyle = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const rightStyle = css`
-  display: flex;
-  align-items: right;
-  justify-content: right;
-`;
-
 export const basicStyles = css`
   display: flex;
   align-items: center;
@@ -137,8 +159,8 @@ export const bounce = keyframes`
 
 export const searchContainer = css`
   display: flex;
-  align-items: left;
-  justify-content: left;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 0.2rem; 
 
   svg {
@@ -149,9 +171,10 @@ export const searchContainer = css`
 `;
 
 export const searchInput = css`
-  padding: 0.3rem 0.3rem;
+  font-family: monospace;
+  padding: 0.3rem 0.5rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 9px;
   font-size: 16px;
 `;
 
@@ -215,6 +238,25 @@ export const listItem = css`
   }
 `;
 
+export const titleStyle = css`
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  max-width: 400px;
+  text-align: left;
+  width: 100%;
+
+  p {
+    margin: 0;
+  }
+
+  ul {
+    margin-left: 0.2rem;
+  }
+`;
+
 export const SmallContainer = styled.div`
   ${basicStyles};
   & code {
@@ -231,6 +273,10 @@ export const SmallContainer = styled.div`
   }
 `;
 
+export const TitleContainer = styled.div`
+  ${listItem};
+`;
+
 export const HeaderContainer = styled.div`
   ${listItem};
 `;
@@ -245,5 +291,18 @@ export const Animated = styled.div<AnimatedProps>`
   :hover {
     color: cornflowerblue;
   }
+  animation: ${({ animation }) => animation} 0.2s infinite ease-in-out alternate;
+`;
+
+export const AnimatedContainer = styled.div<AnimatedProps>`
+  ${basicStyles};
+  ${listItem};
+  ${hoverStyles};
+  margin: 2.5rem 2rem 1.5rem 2rem;
+  color: green;
+  :hover {
+    color: cornflowerblue;
+  }
+  cursor: pointer;
   animation: ${({ animation }) => animation} 0.2s infinite ease-in-out alternate;
 `;

@@ -1,23 +1,25 @@
-import { Animated, bounce, Container, listContainer } from '@/shared/styles';
+import { bounce, AnimatedContainer, centerColumnStyle, HeaderContainer, centerStyle } from '@/shared/styles';
 import { Phone, ContactPhone, Edit } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 export default function Home() {
-    
-    const router = useRouter();
 
+    const router = useRouter();
     return (
         <>
-            <div css={listContainer}>
-                <Animated animation={bounce}>
-                    <Phone /> Phone Book App
-                </Animated>
-                <Container onClick={() => router.push('/listcontact')}>
+            <div css={centerColumnStyle}>
+                <HeaderContainer>
+                    <h1><Phone /> Phone Book App</h1>
+                </HeaderContainer >
+                <AnimatedContainer animation={bounce} onClick={() => router.push('/listcontact')}>
                     <ContactPhone /> Contact List
-                </Container>
-                <Container onClick={() => router.push('/formcontact')}>
+                </AnimatedContainer>
+                <AnimatedContainer animation={bounce} onClick={() => router.push('/formcontact')}>
                     <Edit /> Form Contact
-                </Container>
+                </AnimatedContainer>
+                <HeaderContainer>
+                    <p css={centerStyle}> © 2023 Muhammad Avicena. All rights reserved</p>
+                </HeaderContainer >
             </div >
         </>
     )

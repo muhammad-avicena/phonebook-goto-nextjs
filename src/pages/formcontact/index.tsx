@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { listContainer, listItem, Button, rightStyle } from "@/shared/styles";
+import { listContainer, listItem, spaceBetwenStyle, Button, addButtonStyles } from "@/shared/styles";
 import { useMutation } from "@apollo/client";
 import { ADD_NEW_CONTACT } from "@/lib/queries";
 import { ContactData } from "@/types";
@@ -43,8 +43,11 @@ const formcontact = () => {
     return (
         <div css={listContainer}>
             <div css={listItem}>
+                <div css={spaceBetwenStyle}>
+                    <Button css={addButtonStyles} onClick={() => router.push('/listcontact')}>List Contact</Button>
+                    <Button onClick={() => router.push('/')}>Back</Button>
+                </div>
                 <h1>Add Contact</h1>
-                <Button css={rightStyle} style={{ marginBottom: 20 }} onClick={() => router.push('/listcontact')}>List Contact</Button>
                 <AddContactForm onAddContact={handleSubmit} />
             </div>
         </div>
